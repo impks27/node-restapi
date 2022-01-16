@@ -1,0 +1,31 @@
+{
+  "posts": [
+    {
+      "id": 0,
+      "authorId": 0,
+      "test": "This is the first post"
+    }
+  ],
+  "authors": [
+    {
+      "id": 0,
+      "name": "impks"
+    },
+    {
+      "id": 1,
+      "name": "impks"
+    },
+    {
+      "id": 2,
+      "name": ""
+    },
+    {
+      "id": 3,
+      "name": ""
+    },
+    {
+      "id": 4,
+      "name": "r3454"
+    }
+  ]
+}

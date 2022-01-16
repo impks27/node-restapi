@@ -1,0 +1,4 @@
+app.get("/". (req, res) => {
+   const posts = db.get("posts").value();
+   res.render("index.ejs", { posts: posts });
+});

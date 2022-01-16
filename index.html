@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Demo NODEJS CRUD APP</title>
+</head>
+<body>
+  <h1> THIS IS THE HOME PAGE </h1>
+  <form action="/author" method="POST">
+    <input type="text" placeholder="name" name="name">
+    <button type="submit">Submit</button>
+  </form>
+
+  <h2> Posts </h2>
+  <%= posts %> 
+  <ul class="posts">
+    <% for(var i=0; i < posts.length; i++) {%>
+      <li class="post">
+        <p>
+          <%= posts[i].text %>
+        </p>
+      </li>  
+      <% } %>
+  </ul>
+</body>
+</html>

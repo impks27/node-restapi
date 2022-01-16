@@ -2,7 +2,7 @@ const Joi = require('joi'); // returns class. naming convention for class starts
 const express = require('express');
 const app = express();
 
-app.use(express.json());
+//app.use(express.json());
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening to port ${port}...`));
@@ -13,9 +13,9 @@ const courses = [
    { id: 3, name: 'course3'},
 ];
 
-app.get('/', (req, res) => {
-   res.send('Hello World');
-});
+//app.get('/', (req, res) => {
+   //res.send('Hello World');
+//});
 
 app.get('/api/courses', (req, res) => {
    res.send(courses);
@@ -82,4 +82,52 @@ app.delete('/api/courses/:id', (req, res) => {
 
    // Return the same course
    res.send(course);
+});
+
+//////////////////////////////////////////////////////////////
+const low = require('lowdb')
+const FileSync = require('lowdb/adapters/FileSync')
+
+const adapter = new FileSync('db.json')
+const db = low(adapter)
+
+const bodyParser= require('body-parser');
+app.set('view engine', 'ejs');
+app.use(bodyParser.urlencoded({ extended: true }));
+
+const defaultData = {
+  posts: [
+    {
+      id: 0,
+      authorId: 0,
+      test: "This is the first post",
+    },
+  ],
+  authors: [
+    {
+      id: 0,
+      name: "impks",
+    },
+  ],
+};
+
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + "/index.html");
+});
+
+app.get('/posts', (req, res) => {
+    const posts = db.get("posts").value();
+    res.send(posts);
+});
+
+
+db.defaults(defaultData).write();
+
+app.post("/author", (req, res) => {
+    const name = req.body.name;
+    const lastAuthor = db.get("authors").takeRight(1).value()[0];
+    console.log(lastAuthor);
+    const nextId = lastAuthor.id + 1;
+    db.get("authors").push({ id: nextId, name: name }).write();
+    res.redirect("/");
 });
